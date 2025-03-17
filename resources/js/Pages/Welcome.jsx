@@ -100,6 +100,17 @@ export default function Welcome({ auth, appVersion, phpVersion }) {
                                 </p>
                             </div>
                         </div>
+
+                        <div className="flex justify-center mt-10 w-full ">
+                            <Link
+                                href={route('login')}
+                                className="bg-blue-600 text-white text-lg font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition duration-200 transform hover:scale-105"
+                            >
+                                Try it without an account
+                            </Link>
+                        </div>
+
+
                     </main>
 
                 </div>

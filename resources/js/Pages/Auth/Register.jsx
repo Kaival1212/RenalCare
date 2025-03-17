@@ -6,12 +6,13 @@ import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 
-export default function Register() {
+export default function Register({ clinics }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
         password: '',
         password_confirmation: '',
+        clinic: '',
         is_clinic: false,
     });
 
@@ -106,6 +107,23 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
+                    <InputLabel htmlFor="clinic" value="Clinic" />
+                    <select
+                        id="clinic"
+                        name="clinic"
+                        className="mt-1 block w-full"
+                        onChange={(e) => setData('clinic', e.target.value)}
+                    >
+                        <option value="">Select a clinic</option>
+                        {clinics.map((clinic) => (
+                            <option key={clinic.id} value={clinic.id}>
+                                {clinic.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                <div className="mt-4">
                     <InputLabel htmlFor="clinic" value="Are you a clinic?" />
                     <Checkbox
                         id="clinic"
@@ -127,6 +145,7 @@ export default function Register() {
                         Register
                     </PrimaryButton>
                 </div>
+
             </form>
         </GuestLayout>
     );

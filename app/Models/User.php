@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'is_clinic',
+        "clinic_id",
     ];
 
     /**
@@ -45,5 +46,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    function c_d_ks()
+    {
+        return $this->hasMany(UserCDK::class);
     }
 }

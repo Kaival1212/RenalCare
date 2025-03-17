@@ -4,6 +4,7 @@ import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
+import History from '../Pages/History';
 
 export default function AuthenticatedLayout({ header, children }) {
     const user = usePage().props.auth.user;
@@ -52,6 +53,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                     CKD Calculator
                                 </NavLink>
 
+
                                 {user.is_clinic ? (
                                     <NavLink
                                         href={route('dashboard')}
@@ -60,7 +62,12 @@ export default function AuthenticatedLayout({ header, children }) {
                                         Dashboard
                                     </NavLink>
                                 ) : (
-                                    <div></div>
+                                    <NavLink
+                                        href={route('history')}
+                                        active={route().current('history')}
+                                    >
+                                        History
+                                    </NavLink>
                                 )}
                             </div>
                         </div>

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, usePage } from '@inertiajs/react';
+import { Head, router, usePage } from '@inertiajs/react';
+import axios from 'axios';
 
 function Ckd_cal({ auth }) {
     const [age, setAge] = useState('');
-    //const user = usePage().props.auth.user;
     const [sex, setSex] = useState('male');
     const [creatinine, setCreatinine] = useState('');
     const [ethnicity, setEthnicity] = useState('non-black');
@@ -33,6 +33,26 @@ function Ckd_cal({ auth }) {
 
         setStage(stageResult);
     };
+
+
+
+    const saveGFR = async () => {
+        try {
+            const response = await axios.post(route("user-cdk.store"), {
+                gfr: gfr,
+                stage: stage
+            });
+
+            console.log("Success:", response.data.message);
+            alert("GFR saved successfully!");
+        } catch (error) {
+            console.error("Error saving GFR:", error);
+            alert(error.response?.data?.message || "Failed to save GFR.");
+        }
+    };
+
+
+
 
     return (
         <AuthenticatedLayout
@@ -106,7 +126,7 @@ function Ckd_cal({ auth }) {
 
                             {gfr && (
                                 <button
-                                    onClick={calculateGFR}
+                                    onClick={saveGFR}
                                     className="bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
                                 >
                                     Save GFR
