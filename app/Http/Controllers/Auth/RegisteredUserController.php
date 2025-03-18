@@ -57,7 +57,15 @@ class RegisteredUserController extends Controller
 
             $clinic->owner_id = $user->id;
             $clinic->save();
+
+
+        event(new Registered($user));
+
+        Auth::login($user);
+
+        return redirect(route('dashboard', absolute: false));
         }
+
         else {
             $user = User::create([
                 'name' => $request->name,
@@ -66,12 +74,14 @@ class RegisteredUserController extends Controller
                 'is_clinic' => $request->is_clinic,
                 'clinic_id' => $request->clinic,
             ]);
-        }
+
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('cdk-calculator', absolute: false));
+        }
+
     }
 }
